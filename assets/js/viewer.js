@@ -130,37 +130,63 @@ function getBaseScale(page) {
       scale: 1
     });
 
-  const horizontalPadding =
-    window.innerWidth <= 700
-      ? 0
-      : 40;
+  /*
+   * MOBILE
+   *
+   * Keep the existing mobile behavior.
+   */
+  if (window.innerWidth <= 700) {
 
-  const verticalPadding =
-    window.innerWidth <= 700
-      ? 40
-      : 76;
+    const availableWidth =
+      container.clientWidth;
 
-  const availableWidth =
-    Math.max(
-      280,
-      container.clientWidth -
-        horizontalPadding
+    return Math.min(
+      1.6,
+      availableWidth /
+        viewportAtOne.width
     );
+  }
+
+
+  /*
+   * DESKTOP
+   *
+   * Fit the entire PDF page vertically
+   * inside the available viewer area.
+   */
+
+  const verticalMargin = 56;
 
   const availableHeight =
     Math.max(
-      280,
+      300,
       container.clientHeight -
-        verticalPadding
+        verticalMargin
+    );
+
+  const heightScale =
+    availableHeight /
+    viewportAtOne.height;
+
+
+  /*
+   * Also make sure the page does not
+   * become wider than the viewer.
+   */
+
+  const horizontalMargin = 40;
+
+  const availableWidth =
+    Math.max(
+      300,
+      container.clientWidth -
+        horizontalMargin
     );
 
   const widthScale =
     availableWidth /
     viewportAtOne.width;
 
-  const heightScale =
-    availableHeight /
-    viewportAtOne.height;
 
   return Math.min(
     1.6,
