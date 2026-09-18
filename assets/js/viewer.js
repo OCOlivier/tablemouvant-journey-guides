@@ -403,22 +403,38 @@ async function renderPage(
      */
 
     const externalUrl =
-      annotation.url ||
-      annotation.unsafeUrl;
+  annotation.url ||
+  annotation.unsafeUrl;
 
 
-    if (externalUrl) {
+if (externalUrl) {
 
-      link.href =
-        externalUrl;
+  link.href =
+    externalUrl;
 
-      link.target =
-        "_blank";
 
-      link.rel =
-        "noopener noreferrer";
+  /*
+   * Phone links must be allowed to navigate
+   * normally on iOS so the operating system
+   * can hand them off to the Phone app.
+   */
 
-    }
+  if (
+    externalUrl.toLowerCase().startsWith("tel:")
+  ) {
+
+    link.target =
+      "_self";
+
+  } else {
+
+    link.target =
+      "_blank";
+
+    link.rel =
+      "noopener noreferrer";
+  }
+}
 
 
     /*
@@ -873,11 +889,12 @@ container.addEventListener(
      * when interacting with a PDF link.
      */
 
-    if (
+    const tappedLink =
       event.target.closest(
         ".annotation-layer a"
-      )
-    ) {
+      );
+
+    if (tappedLink) {
 
       lastTap = 0;
 
