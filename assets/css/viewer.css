@@ -1,1 +1,415 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap');
 
+
+/* =========================================================
+   TABLEMOUVANT PDF VIEWER
+   ========================================================= */
+
+:root {
+  --cream: #fffbf4;
+  --ink: #25221f;
+  --muted: #746e67;
+  --line: rgba(37, 34, 31, 0.14);
+
+  --toolbar-height: 58px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  background: var(--cream);
+  color: var(--ink);
+}
+
+body {
+  overflow: hidden;
+
+  font-family:
+    "EB Garamond",
+    Baskerville,
+    Georgia,
+    serif;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   MAIN VIEWER
+   ========================================================= */
+
+.viewer {
+  width: 100%;
+  height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.toolbar {
+  flex: 0 0 var(--toolbar-height);
+
+  min-height: var(--toolbar-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding: 0 20px;
+
+  border-bottom: 1px solid var(--line);
+
+  background: rgba(255, 251, 244, 0.96);
+
+  backdrop-filter: blur(10px);
+
+  position: relative;
+  z-index: 20;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand {
+  min-width: 0;
+
+  display: flex;
+  align-items: baseline;
+
+  gap: 12px;
+}
+
+.brand-name {
+  font-size: 19px;
+  letter-spacing: 0.02em;
+
+  white-space: nowrap;
+}
+
+.journey-title {
+  color: var(--muted);
+
+  font-size: 16px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   CONTROLS
+   ========================================================= */
+
+.controls {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  flex-shrink: 0;
+}
+
+.controls button {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 24px;
+  line-height: 1;
+}
+
+.controls button:hover {
+  background: rgba(37, 34, 31, 0.07);
+}
+
+.controls button:disabled {
+  opacity: 0.28;
+
+  cursor: default;
+
+  background: transparent;
+}
+
+#page-status {
+  min-width: 62px;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   PDF VIEWER AREA
+   ========================================================= */
+
+.viewer-container {
+  position: relative;
+
+  flex: 1 1 auto;
+
+  min-height: 0;
+
+  overflow: auto;
+
+  overscroll-behavior: contain;
+
+  -webkit-overflow-scrolling: touch;
+
+  padding: 28px 20px 48px;
+
+  touch-action: pan-x pan-y;
+}
+
+
+/* =========================================================
+   PAGE CONTAINER
+   ========================================================= */
+
+.page-layer {
+  width: fit-content;
+
+  min-width: min(100%, 320px);
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   INDIVIDUAL PAGE
+   ========================================================= */
+
+.page {
+  position: relative;
+
+  margin: 0 auto 28px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 30px rgba(37, 34, 31, 0.12);
+}
+
+
+/* =========================================================
+   PDF CANVAS
+   ========================================================= */
+
+.page canvas {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+
+/* =========================================================
+   PDF ANNOTATION / LINK LAYER
+   ========================================================= */
+
+.annotation-layer {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  line-height: 1;
+}
+
+.annotation-layer section {
+  position: absolute;
+
+  text-align: initial;
+
+  transform-origin: 0 0;
+}
+
+.annotation-layer a {
+  position: absolute;
+
+  display: block;
+
+  cursor: pointer;
+
+  background: transparent;
+
+  outline: none;
+}
+
+.annotation-layer a:hover {
+  background: rgba(37, 34, 31, 0.04);
+}
+
+
+/* =========================================================
+   LOADING / ERROR
+   ========================================================= */
+
+.loading,
+.error {
+  position: absolute;
+
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: 30px;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  font-size: 18px;
+
+  z-index: 10;
+}
+
+.error {
+  color: var(--ink);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  :root {
+    --toolbar-height: 52px;
+  }
+
+  .toolbar {
+    padding: 0 10px;
+
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 7px;
+  }
+
+  .brand-name {
+    font-size: 17px;
+  }
+
+  .journey-title {
+    display: none;
+  }
+
+  .controls {
+    gap: 0;
+  }
+
+  .controls button {
+    width: 34px;
+    height: 34px;
+  }
+
+  #page-status {
+    min-width: 54px;
+
+    font-size: 12px;
+  }
+
+  .viewer-container {
+    padding: 12px 0 28px;
+  }
+
+  .page {
+    margin-bottom: 16px;
+
+    box-shadow:
+      0 4px 18px rgba(37, 34, 31, 0.10);
+  }
+
+  .page-layer {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .controls button {
+    width: 32px;
+  }
+
+  #zoom-out,
+  #zoom-in {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  * {
+    scroll-behavior: auto !important;
+  }
+}
