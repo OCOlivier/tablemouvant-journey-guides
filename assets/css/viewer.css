@@ -360,11 +360,7 @@ button:focus-visible {
   .brand {
     gap: 7px;
   }
-
-
-  .journey-title {
-    display: none;
-  }
+   
 
   .controls {
     gap: 0;
