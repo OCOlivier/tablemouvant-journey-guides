@@ -133,12 +133,6 @@ button:focus-visible {
   gap: 12px;
 }
 
-.brand-name {
-  font-size: 19px;
-  letter-spacing: 0.02em;
-
-  white-space: nowrap;
-}
 
 .journey-title {
   color: var(--muted);
@@ -376,9 +370,6 @@ button:focus-visible {
     gap: 7px;
   }
 
-  .brand-name {
-    font-size: 17px;
-  }
 
   .journey-title {
     display: none;
