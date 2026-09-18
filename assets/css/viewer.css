@@ -360,15 +360,39 @@ button:focus-visible {
   }
 
   .brand {
-    gap: 7px;
+    min-width: 0;
+    flex: 1 1 auto;
+
+    display: flex;
+    align-items: baseline;
+
+    gap: 6px;
+
+    overflow: hidden;
   }
 
   .brand-name {
+    flex: 0 0 auto;
     font-size: 17px;
+    white-space: nowrap;
   }
 
+  .journey-title {
+    display: block !important;
+
+    flex: 1 1 auto;
+    min-width: 0;
+
+    color: var(--muted);
+    font-size: 14px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   .controls {
+    flex: 0 0 auto;
     gap: 0;
   }
 
