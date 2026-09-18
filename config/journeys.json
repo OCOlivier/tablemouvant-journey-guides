@@ -1,1 +1,22 @@
-
+{
+  "Botts_Denison": {
+    "title": "Botts_Denison",
+    "pdf": "assets/pdf/provence/Botts_Denison_RestaurantGuide_V2.pdf"
+  },
+  "burgundy": {
+    "title": "Burgundy",
+    "pdf": "assets/pdf/burgundy/guide.pdf"
+  },
+  "champagne": {
+    "title": "Champagne",
+    "pdf": "assets/pdf/champagne/guide.pdf"
+  },
+  "bordeaux": {
+    "title": "Bordeaux",
+    "pdf": "assets/pdf/bordeaux/guide.pdf"
+  },
+  "riviera": {
+    "title": "French Riviera",
+    "pdf": "assets/pdf/riviera/guide.pdf"
+  }
+}
