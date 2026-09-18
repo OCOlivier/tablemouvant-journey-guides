@@ -31,7 +31,6 @@ const params =
 const journeyId =
   params.get("journey");
 
-
 const container =
   document.getElementById("viewer-container");
 
@@ -251,7 +250,6 @@ async function renderPage(
       outputScale
     );
 
-
   canvas.height =
     Math.ceil(
       viewport.height *
@@ -382,14 +380,11 @@ async function renderPage(
     link.style.left =
       `${Math.min(left, right)}px`;
 
-
     link.style.top =
       `${Math.min(top, bottom)}px`;
 
-
     link.style.width =
       `${Math.abs(right - left)}px`;
-
 
     link.style.height =
       `${Math.abs(bottom - top)}px`;
@@ -401,34 +396,51 @@ async function renderPage(
     );
 
 
-    /* -----------------------------------------------------
-       EXTERNAL LINK
-       ----------------------------------------------------- */
+    /*
+     * -----------------------------------------------------
+     * EXTERNAL LINK
+     * -----------------------------------------------------
+     */
 
-    if (annotation.url) {
+    const externalUrl =
+      annotation.url ||
+      annotation.unsafeUrl;
+
+
+    if (externalUrl) {
 
       link.href =
-        annotation.url;
+        externalUrl;
 
       link.target =
         "_blank";
 
       link.rel =
         "noopener noreferrer";
+
     }
 
 
-    /* -----------------------------------------------------
-       INTERNAL PDF LINK
-       ----------------------------------------------------- */
+    /*
+     * -----------------------------------------------------
+     * INTERNAL PDF LINK
+     * -----------------------------------------------------
+     */
 
     else if (annotation.dest) {
+
+      link.href =
+        "#";
+
 
       link.addEventListener(
         "click",
         async (event) => {
 
           event.preventDefault();
+
+          event.stopPropagation();
+
 
           const destinationPage =
             await resolveDestinationPage(
@@ -447,13 +459,27 @@ async function renderPage(
     }
 
 
+    /*
+     * -----------------------------------------------------
+     * ADD LINK TO ANNOTATION LAYER
+     * -----------------------------------------------------
+     */
+
     annotationLayer.appendChild(
       link
     );
   }
 
 
+  /*
+   * -------------------------------------------------------
+   * PDF IS NOW READY
+   * -------------------------------------------------------
+   */
+
   loading.hidden = true;
+
+  errorBox.hidden = true;
 
   updateControls();
 
@@ -489,6 +515,7 @@ async function resolveDestinationPage(
       !explicitDestination ||
       !explicitDestination[0]
     ) {
+
       return null;
     }
 
@@ -725,13 +752,25 @@ container.addEventListener(
     }
 
 
+    /*
+     * Do not begin swipe tracking when
+     * touching a PDF link.
+     */
+
+    if (
+      event.target.closest(
+        ".annotation-layer a"
+      )
+    ) {
+      return;
+    }
+
+
     touchStartX =
       event.touches[0].clientX;
 
-
     touchStartY =
       event.touches[0].clientY;
-
 
     touchStartTime =
       Date.now();
@@ -749,6 +788,20 @@ container.addEventListener(
 
     if (
       event.changedTouches.length !== 1
+    ) {
+      return;
+    }
+
+
+    /*
+     * Do not navigate pages when
+     * releasing a PDF link.
+     */
+
+    if (
+      event.target.closest(
+        ".annotation-layer a"
+      )
     ) {
       return;
     }
@@ -815,6 +868,23 @@ container.addEventListener(
     }
 
 
+    /*
+     * Do not trigger double-tap zoom
+     * when interacting with a PDF link.
+     */
+
+    if (
+      event.target.closest(
+        ".annotation-layer a"
+      )
+    ) {
+
+      lastTap = 0;
+
+      return;
+    }
+
+
     const now =
       Date.now();
 
@@ -825,7 +895,7 @@ container.addEventListener(
 
       if (
         scale <=
-        baseScale + 0.05
+        (baseScale ?? 1) + 0.05
       ) {
 
         scale =
@@ -849,7 +919,8 @@ container.addEventListener(
     }
 
 
-    lastTap = now;
+    lastTap =
+      now;
 
   },
   {
@@ -919,9 +990,11 @@ document.addEventListener(
 
 async function init() {
 
-  /* -------------------------------------------------------
-     CHECK JOURNEY PARAMETER
-     ------------------------------------------------------- */
+  /*
+   * -------------------------------------------------------
+   * CHECK JOURNEY PARAMETER
+   * -------------------------------------------------------
+   */
 
   if (!journeyId) {
 
@@ -935,9 +1008,11 @@ async function init() {
 
   try {
 
-    /* -----------------------------------------------------
-       LOAD JOURNEY CONFIGURATION
-       ----------------------------------------------------- */
+    /*
+     * -----------------------------------------------------
+     * LOAD JOURNEY CONFIGURATION
+     * -----------------------------------------------------
+     */
 
     const response =
       await fetch(
@@ -972,9 +1047,11 @@ async function init() {
     }
 
 
-    /* -----------------------------------------------------
-       SET TITLE
-       ----------------------------------------------------- */
+    /*
+     * -----------------------------------------------------
+     * SET TITLE
+     * -----------------------------------------------------
+     */
 
     titleEl.textContent =
       journey.title;
@@ -984,9 +1061,11 @@ async function init() {
       `Tablemouvant — ${journey.title}`;
 
 
-    /* -----------------------------------------------------
-       LOAD PDF
-       ----------------------------------------------------- */
+    /*
+     * -----------------------------------------------------
+     * LOAD PDF
+     * -----------------------------------------------------
+ */
 
     pdfDoc =
       await pdfjsLib.getDocument({
@@ -1000,9 +1079,11 @@ async function init() {
       }).promise;
 
 
-    /* -----------------------------------------------------
-       INITIAL STATE
-       ----------------------------------------------------- */
+    /*
+     * -----------------------------------------------------
+     * INITIAL STATE
+     * -----------------------------------------------------
+     */
 
     baseScale = null;
 
