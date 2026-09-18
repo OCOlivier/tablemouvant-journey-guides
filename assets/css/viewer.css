@@ -48,6 +48,15 @@ body {
 
 
 /* =========================================================
+   HIDDEN ELEMENTS
+   ========================================================= */
+
+[hidden] {
+  display: none !important;
+}
+
+
+/* =========================================================
    BUTTONS
    ========================================================= */
 
@@ -270,6 +279,10 @@ button:focus-visible {
   overflow: hidden;
 
   line-height: 1;
+
+  z-index: 5;
+
+  pointer-events: none;
 }
 
 .annotation-layer section {
@@ -290,10 +303,21 @@ button:focus-visible {
   background: transparent;
 
   outline: none;
+
+  z-index: 6;
+
+  pointer-events: auto;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .annotation-layer a:hover {
   background: rgba(37, 34, 31, 0.04);
+}
+
+.annotation-layer a:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: -1px;
 }
 
 
