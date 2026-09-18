@@ -130,12 +130,10 @@ function getBaseScale(page) {
       scale: 1
     });
 
-
   const horizontalPadding =
     window.innerWidth <= 700
       ? 0
       : 40;
-
 
   const availableWidth =
     Math.max(
@@ -144,11 +142,13 @@ function getBaseScale(page) {
         horizontalPadding
     );
 
+  const widthScale =
+    availableWidth /
+    viewportAtOne.width;
 
   return Math.min(
     1.6,
-    availableWidth /
-      viewportAtOne.width
+    widthScale
   );
 }
 
