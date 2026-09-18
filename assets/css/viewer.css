@@ -362,6 +362,10 @@ button:focus-visible {
     --toolbar-height: 52px;
   }
 
+  .viewer {
+    min-height: 0;
+  }
+
   .toolbar {
     padding: 0 10px;
 
@@ -396,6 +400,8 @@ button:focus-visible {
   }
 
   .viewer-container {
+    min-height: 0;
+
     padding: 12px 0 28px;
   }
 
