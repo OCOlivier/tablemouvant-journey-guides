@@ -367,9 +367,6 @@ button:focus-visible {
     font-size: 17px;
   }
 
-  .journey-title {
-    display: none;
-  }
 
   .controls {
     gap: 0;
