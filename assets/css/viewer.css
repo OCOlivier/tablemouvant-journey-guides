@@ -84,7 +84,7 @@ button:focus-visible {
 .viewer {
   width: 100%;
   height: 100svh;
-   min-height: 100%;
+
 
   display: flex;
   flex-direction: column;
@@ -356,7 +356,6 @@ button:focus-visible {
 
   .toolbar {
     padding: 0 10px;
-
     gap: 8px;
   }
 
@@ -383,7 +382,6 @@ button:focus-visible {
 
   #page-status {
     min-width: 54px;
-
     font-size: 12px;
   }
 
@@ -402,7 +400,6 @@ button:focus-visible {
     width: 100%;
   }
 }
-
 
 /* =========================================================
    SMALL PHONES
