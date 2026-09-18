@@ -135,6 +135,11 @@ function getBaseScale(page) {
       ? 0
       : 40;
 
+  const verticalPadding =
+    window.innerWidth <= 700
+      ? 40
+      : 76;
+
   const availableWidth =
     Math.max(
       280,
@@ -142,13 +147,25 @@ function getBaseScale(page) {
         horizontalPadding
     );
 
+  const availableHeight =
+    Math.max(
+      280,
+      container.clientHeight -
+        verticalPadding
+    );
+
   const widthScale =
     availableWidth /
     viewportAtOne.width;
 
+  const heightScale =
+    availableHeight /
+    viewportAtOne.height;
+
   return Math.min(
     1.6,
-    widthScale
+    widthScale,
+    heightScale
   );
 }
 
