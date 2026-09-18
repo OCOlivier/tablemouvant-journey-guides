@@ -1,1 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
+  <meta name="robots" content="noindex, nofollow, noarchive">
+
+  <title>Tablemouvant — Journey Guide</title>
+
+  <link rel="stylesheet" href="assets/css/viewer.css">
+</head>
+
+<body>
+
+  <main id="app" class="viewer" aria-label="Tablemouvant journey guide">
+
+    <header class="toolbar">
+
+      <div class="brand">
+        <span class="brand-name">Tablemouvant</span>
+        <span id="journey-title" class="journey-title"></span>
+      </div>
+
+      <div class="controls" aria-label="Document controls">
+
+        <button
+          id="prev"
+          type="button"
+          aria-label="Previous page"
+        >‹</button>
+
+        <span
+          id="page-status"
+          aria-live="polite"
+        >— / —</span>
+
+        <button
+          id="next"
+          type="button"
+          aria-label="Next page"
+        >›</button>
+
+        <button
+          id="zoom-out"
+          type="button"
+          aria-label="Zoom out"
+        >−</button>
+
+        <button
+          id="zoom-in"
+          type="button"
+          aria-label="Zoom in"
+        >+</button>
+
+      </div>
+
+    </header>
+
+    <section
+      id="viewer-container"
+      class="viewer-container"
+      aria-label="Journey guide document"
+    >
+
+      <div id="loading" class="loading">
+        Loading guide…
+      </div>
+
+      <div
+        id="error"
+        class="error"
+        hidden
+      ></div>
+
+      <div
+        id="page-layer"
+        class="page-layer"
+      ></div>
+
+    </section>
+
+  </main>
+
+  <script
+    type="module"
+    src="assets/js/viewer.js"
+  ></script>
+
+</body>
+</html>
