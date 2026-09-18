@@ -355,8 +355,11 @@ button:focus-visible {
   }
 
   .toolbar {
-    padding: 0 10px;
-    gap: 8px;
+    padding: 0 8px;
+    gap: 4px;
+
+    display: flex;
+    align-items: center;
   }
 
   .brand {
@@ -364,7 +367,7 @@ button:focus-visible {
     flex: 1 1 auto;
 
     display: flex;
-    align-items: baseline;
+    align-items: center;
 
     gap: 6px;
 
@@ -373,17 +376,20 @@ button:focus-visible {
 
   .brand-name {
     flex: 0 0 auto;
+
     font-size: 17px;
+
     white-space: nowrap;
   }
 
   .journey-title {
     display: block !important;
 
-    flex: 1 1 auto;
+    flex: 1 1 0;
     min-width: 0;
 
     color: var(--muted);
+
     font-size: 14px;
 
     white-space: nowrap;
@@ -393,16 +399,20 @@ button:focus-visible {
 
   .controls {
     flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+
     gap: 0;
   }
 
   .controls button {
-    width: 34px;
+    width: 32px;
     height: 34px;
   }
 
   #page-status {
-    min-width: 54px;
+    min-width: 48px;
     font-size: 12px;
   }
 
@@ -421,7 +431,6 @@ button:focus-visible {
     width: 100%;
   }
 }
-
 /* =========================================================
    SMALL PHONES
    ========================================================= */
